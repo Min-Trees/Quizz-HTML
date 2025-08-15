@@ -8,21 +8,24 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     
     :root {
-      --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      --danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-      --warning: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-      --dark: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --primary: #667eea;
+      --primary-light: #758ff0;
+      --accent: #f093fb;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
       
-      --bg: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-      --card: rgba(255, 255, 255, 0.15);
-      --card-hover: rgba(255, 255, 255, 0.25);
-      --text: #ffffff;
-      --text-muted: rgba(255, 255, 255, 0.8);
-      --border: rgba(255, 255, 255, 0.2);
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.4);
+      --bg-start: #1e40af;
+      --bg-end: #3b82f6;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: rgba(255, 255, 255, 0.2);
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --text-white: #ffffff;
+      --text-muted: #9ca3af;
+      --border: #e5e7eb;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
     
     * {
@@ -32,23 +35,10 @@
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
-    }
-    
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
-      z-index: -1;
     }
     
     .wrap {
@@ -68,35 +58,31 @@
       font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 700;
       margin: 0 0 20px 0;
-      background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      color: var(--text-white);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     
     .subtitle {
       font-size: 1.2rem;
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.9);
       margin-bottom: 30px;
     }
     
     /* User Info Card */
     .user-card {
-      background: var(--card);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 20px;
       padding: 30px;
       margin-bottom: 30px;
       box-shadow: var(--shadow);
-      transition: all 0.3s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      backdrop-filter: blur(10px);
     }
     
     .user-card:hover {
-      background: var(--card-hover);
       box-shadow: var(--shadow-hover);
-      transform: translateY(-5px);
+      transform: translateY(-2px);
     }
     
     .user-form {
@@ -116,25 +102,24 @@
     
     label {
       font-weight: 600;
-      color: var(--text);
+      color: var(--text-primary);
+      font-size: 14px;
     }
     
     .user-input {
       padding: 15px 20px;
       border: 2px solid var(--border);
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text);
+      background: #ffffff;
+      color: var(--text-primary);
       font-size: 16px;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     
     .user-input:focus {
       outline: none;
-      border-color: #667eea;
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.3);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
     
     .user-info {
@@ -145,10 +130,7 @@
     .user-name {
       font-size: 1.5rem;
       font-weight: 700;
-      background: var(--success);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--success);
       margin-bottom: 10px;
     }
     
@@ -160,39 +142,53 @@
       font-weight: 600;
       font-size: 16px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      backdrop-filter: blur(10px);
+      color: white;
     }
     
     .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
     
     .btn-primary {
       background: var(--primary);
-      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-light);
     }
     
     .btn-success {
       background: var(--success);
-      color: white;
+    }
+    
+    .btn-success:hover {
+      background: #059669;
     }
     
     .btn-danger {
       background: var(--danger);
-      color: white;
+    }
+    
+    .btn-danger:hover {
+      background: #dc2626;
     }
     
     .btn-ghost {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-primary);
       border: 2px solid var(--border);
+    }
+    
+    .btn-ghost:hover {
+      background: #ffffff;
+      border-color: var(--primary);
     }
     
     .controls {
@@ -205,13 +201,13 @@
     
     /* Quiz Card */
     .quiz-card {
-      background: var(--card);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 20px;
       box-shadow: var(--shadow);
       margin-bottom: 30px;
       overflow: hidden;
+      backdrop-filter: blur(10px);
     }
     
     .q-list {
@@ -221,7 +217,7 @@
     .q {
       padding: 30px;
       border-bottom: 1px solid var(--border);
-      transition: all 0.3s ease;
+      transition: background-color 0.2s ease;
     }
     
     .q:last-child {
@@ -229,7 +225,7 @@
     }
     
     .q:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(102, 126, 234, 0.05);
     }
     
     .q h3 {
@@ -237,6 +233,7 @@
       font-size: 1.2rem;
       font-weight: 600;
       line-height: 1.6;
+      color: var(--text-primary);
     }
     
     .topic {
@@ -267,15 +264,15 @@
       border: 2px solid var(--border);
       border-radius: 15px;
       cursor: pointer;
-      background: rgba(255, 255, 255, 0.05);
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
+      background: #ffffff;
+      transition: all 0.2s ease;
+      color: var(--text-primary);
     }
     
     label.opt:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #667eea;
-      transform: translateX(5px);
+      background: rgba(102, 126, 234, 0.05);
+      border-color: var(--primary);
+      transform: translateX(3px);
     }
     
     .short {
@@ -290,29 +287,28 @@
       padding: 15px 20px;
       border-radius: 12px;
       border: 2px solid var(--border);
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text);
+      background: #ffffff;
+      color: var(--text-primary);
       font-size: 16px;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
     
     .short input:focus {
       outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.3);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
     
     /* Result Card */
     .result-card {
-      background: var(--card);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 20px;
       padding: 40px;
       box-shadow: var(--shadow);
       margin-bottom: 30px;
       display: none;
+      backdrop-filter: blur(10px);
     }
     
     .result-grid {
@@ -323,12 +319,12 @@
     }
     
     .stat-card {
-      background: rgba(255, 255, 255, 0.1);
+      background: #ffffff;
       padding: 25px;
       border-radius: 15px;
       text-align: center;
       border: 1px solid var(--border);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
     
     .stat-value {
@@ -338,61 +334,48 @@
     }
     
     .stat-label {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       font-weight: 500;
+      font-size: 14px;
     }
     
-    .score-value { background: var(--primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .percent-value { background: var(--success); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .correct-value { background: var(--success); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .wrong-value { background: var(--danger); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .score-value { color: var(--primary); }
+    .percent-value { color: var(--success); }
+    .correct-value { color: var(--success); }
+    .wrong-value { color: var(--danger); }
     
     /* Explanation Styles */
     .explain {
       margin-top: 15px;
       padding: 15px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      border-left: 4px solid #667eea;
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
       display: none;
-      backdrop-filter: blur(10px);
+      color: var(--text-primary);
     }
     
     .explain.correct {
-      border-left-color: #4facfe;
-      background: rgba(79, 172, 254, 0.1);
+      border-left-color: var(--success);
+      background: #f0fdf4;
+      color: #166534;
     }
     
     .explain.wrong {
-      border-left-color: #fa709a;
-      background: rgba(250, 112, 154, 0.1);
+      border-left-color: var(--danger);
+      background: #fef2f2;
+      color: #991b1b;
     }
     
     /* Footer */
     footer {
       text-align: center;
       padding: 40px 20px;
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.8);
       font-size: 14px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
       backdrop-filter: blur(10px);
-    }
-    
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .q {
-      animation: fadeInUp 0.6s ease forwards;
     }
     
     /* Radio button custom styling */
@@ -401,29 +384,71 @@
       height: 20px;
       border: 2px solid var(--border);
       border-radius: 50%;
-      background: transparent;
+      background: white;
       margin: 0;
       cursor: pointer;
+      position: relative;
     }
     
     input[type="radio"]:checked {
       background: var(--primary);
-      border-color: #667eea;
+      border-color: var(--primary);
+    }
+    
+    input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
     
     /* Loading Animation */
     .loading {
       display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,0.3);
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
       border-radius: 50%;
       border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
+      animation: spin 1s linear infinite;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
+    }
+    
+    /* Success message */
+    .success-message {
+      background: var(--success);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+      box-shadow: var(--shadow);
+    }
+    
+    /* Code styling */
+    pre, code {
+      background: #f1f5f9;
+      color: #334155;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+    
+    pre {
+      padding: 12px;
+      margin: 8px 0;
+      overflow-x: auto;
     }
     
     /* Responsive Design */
@@ -447,18 +472,23 @@
       .result-grid {
         grid-template-columns: 1fr;
       }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
     }
     
-    /* Success message */
-    .success-message {
-      background: var(--success);
-      color: white;
-      padding: 15px 20px;
-      border-radius: 10px;
-      margin: 20px 0;
-      text-align: center;
-      font-weight: 600;
-      display: none;
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
@@ -472,7 +502,7 @@
     <!-- User Info Section -->
     <div class="user-card" id="userCard">
       <div class="user-form" id="userForm">
-        <h2 style="margin: 0 0 20px 0; text-align: center;">👋 Chào mừng bạn đến với Quiz Python!</h2>
+        <h2 style="margin: 0 0 20px 0; text-align: center; color: var(--text-primary);">👋 Chào mừng bạn đến với Quiz Python!</h2>
         <div class="input-group">
           <label for="userName">Tên của bạn:</label>
           <input type="text" id="userName" class="user-input" placeholder="Nhập tên của bạn..." maxlength="50">
@@ -488,7 +518,7 @@
       
       <div class="user-info" id="userInfo" style="display: none;">
         <div class="user-name" id="displayName"></div>
-        <p>Chúc bạn may mắn với bài quiz! 🍀</p>
+        <p style="color: var(--text-secondary);">Chúc bạn may mắn với bài quiz! 🍀</p>
       </div>
     </div>
 
@@ -513,7 +543,7 @@
 
     <!-- Result Section -->
     <div class="result-card" id="result">
-      <h2 style="text-align: center; margin-bottom: 30px;">📊 Kết quả của bạn</h2>
+      <h2 style="text-align: center; margin-bottom: 30px; color: var(--text-primary);">📊 Kết quả của bạn</h2>
       <div class="result-grid">
         <div class="stat-card">
           <div class="stat-value score-value" id="score">0</div>
@@ -653,23 +683,26 @@
       renderQuiz();
       
       // Smooth scroll to quiz
-      document.getElementById('quizSection').scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+      setTimeout(() => {
+        document.getElementById('quizSection').scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 100);
 
       showMessage(`Chào mừng ${currentUser.name}! Hãy bắt đầu làm bài quiz.`, 'success');
     }
 
-    // Render quiz
+    // Render quiz with performance optimization
     function renderQuiz() {
       const el = document.getElementById('quiz');
-      el.innerHTML = '';
+      
+      // Use DocumentFragment for better performance
+      const fragment = document.createDocumentFragment();
       
       Q.forEach((q, idx) => {
         const qEl = document.createElement('div');
         qEl.className = 'q';
-        qEl.style.animationDelay = `${idx * 0.1}s`;
 
         const topicEl = document.createElement('div');
         topicEl.className = 'topic';
@@ -724,24 +757,41 @@
         explainEl.id = `exp_${idx}`;
         qEl.appendChild(explainEl);
 
-        el.appendChild(qEl);
+        fragment.appendChild(qEl);
       });
+      
+      // Single DOM update
+      el.innerHTML = '';
+      el.appendChild(fragment);
     }
 
-    // Grade quiz
+    // Grade quiz with optimized DOM queries
     function gradeQuiz() {
       let correct = 0;
       const total = Q.length;
 
+      // Batch DOM queries for better performance
+      const explanationElements = {};
+      const inputElements = {};
+      
+      for (let idx = 0; idx < total; idx++) {
+        explanationElements[idx] = document.getElementById(`exp_${idx}`);
+        if (Q[idx].type === 'mcq') {
+          inputElements[idx] = document.querySelector(`input[name="q${idx}"]:checked`);
+        } else {
+          inputElements[idx] = document.querySelector(`input[name="q${idx}"]`);
+        }
+      }
+
       Q.forEach((q, idx) => {
-        const explainEl = document.getElementById(`exp_${idx}`);
+        const explainEl = explanationElements[idx];
         explainEl.style.display = 'block';
 
         let isCorrect = false;
         let explanation = '';
 
         if (q.type === 'mcq') {
-          const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+          const selected = inputElements[idx];
           isCorrect = selected && Number(selected.value) === q.answer;
           
           if (isCorrect) {
@@ -754,7 +804,7 @@
             explainEl.className = 'explain wrong';
           }
         } else {
-          const input = document.querySelector(`input[name="q${idx}"]`);
+          const input = inputElements[idx];
           const userAnswer = input ? norm(input.value) : '';
           const correctAnswers = (q.answer || []).map(norm);
           isCorrect = correctAnswers.includes(userAnswer);
@@ -777,19 +827,29 @@
       currentUser.score = correct;
       currentUser.completedAt = new Date().toISOString();
 
-      // Update result display
+      // Batch DOM updates for results
       const percent = Math.round((correct / total) * 100);
-      document.getElementById('score').textContent = correct;
-      document.getElementById('percent').textContent = percent + '%';
-      document.getElementById('correct').textContent = correct;
-      document.getElementById('wrong').textContent = total - correct;
-      document.getElementById('result').style.display = 'block';
+      const resultElements = {
+        score: document.getElementById('score'),
+        percent: document.getElementById('percent'),
+        correct: document.getElementById('correct'),
+        wrong: document.getElementById('wrong'),
+        result: document.getElementById('result')
+      };
 
-      // Scroll to results
-      document.getElementById('result').scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+      resultElements.score.textContent = correct;
+      resultElements.percent.textContent = percent + '%';
+      resultElements.correct.textContent = correct;
+      resultElements.wrong.textContent = total - correct;
+      resultElements.result.style.display = 'block';
+
+      // Smooth scroll to results
+      setTimeout(() => {
+        resultElements.result.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 100);
 
       // Show completion message
       let message = '';
@@ -806,38 +866,36 @@
       showMessage(message, 'success');
     }
 
-    // Reset quiz
+    // Reset quiz with optimized clearing
     function resetQuiz() {
-      // Reset form inputs
-      document.querySelectorAll('input[type="radio"]').forEach(input => {
-        input.checked = false;
-      });
+      // Batch reset operations
+      const radioInputs = document.querySelectorAll('input[type="radio"]');
+      const textInputs = document.querySelectorAll('input[type="text"]');
+      const explanations = document.querySelectorAll('.explain');
       
-      document.querySelectorAll('input[type="text"]').forEach(input => {
-        input.value = '';
+      // Use requestAnimationFrame for smooth UI updates
+      requestAnimationFrame(() => {
+        radioInputs.forEach(input => input.checked = false);
+        textInputs.forEach(input => input.value = '');
+        explanations.forEach(el => el.style.display = 'none');
+        
+        document.getElementById('result').style.display = 'none';
+        
+        // Smooth scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        showMessage('Quiz đã được reset! Bạn có thể làm lại.', 'success');
       });
-
-      // Hide explanations and results
-      document.querySelectorAll('.explain').forEach(el => {
-        el.style.display = 'none';
-      });
-      
-      document.getElementById('result').style.display = 'none';
-
-      // Scroll to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      showMessage('Quiz đã được reset! Bạn có thể làm lại.', 'success');
     }
 
-    // Save results (simulated - in real app this would call backend API)
+    // Save results with improved UX
     function saveResults() {
       if (!currentUser.completedAt) {
         alert('Vui lòng hoàn thành quiz trước khi lưu kết quả!');
         return;
       }
 
-      // Simulate API call
+      // Simulate API call with improved UX
       const resultData = {
         user_name: currentUser.name,
         user_email: currentUser.email,
@@ -848,43 +906,51 @@
         attempt_number: currentUser.attempts
       };
 
-      // In real implementation, you would send this to your backend:
-      // fetch('/api/save-quiz-result', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(resultData)
-      // })
-
       console.log('Kết quả sẽ được lưu:', resultData);
       
-      // Simulate success
-      showMessage(`💾 Kết quả của ${currentUser.name} đã được lưu thành công!`, 'success');
-      
-      // Disable save button temporarily
+      // Improved save button feedback
       const saveBtn = document.getElementById('saveBtn');
       const originalText = saveBtn.innerHTML;
+      
       saveBtn.innerHTML = '<span class="loading"></span> Đang lưu...';
       saveBtn.disabled = true;
       
+      // Simulate network delay
       setTimeout(() => {
         saveBtn.innerHTML = '✅ Đã lưu';
+        showMessage(`💾 Kết quả của ${currentUser.name} đã được lưu thành công!`, 'success');
+        
         setTimeout(() => {
           saveBtn.innerHTML = originalText;
           saveBtn.disabled = false;
         }, 2000);
-      }, 1500);
+      }, 1200);
     }
 
-    // Event listeners
+    // Optimized event listeners with delegation
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('submitBtn').addEventListener('click', gradeQuiz);
-      document.getElementById('retryBtn').addEventListener('click', resetQuiz);
-      document.getElementById('saveBtn').addEventListener('click', saveResults);
+      // Use event delegation for better performance
+      document.addEventListener('click', function(e) {
+        if (e.target.id === 'submitBtn') {
+          e.preventDefault();
+          gradeQuiz();
+        } else if (e.target.id === 'retryBtn') {
+          e.preventDefault();
+          resetQuiz();
+        } else if (e.target.id === 'saveBtn') {
+          e.preventDefault();
+          saveResults();
+        }
+      });
       
-      // Enter key support for name input
+      // Enter key support with throttling
+      let enterKeyTimeout;
       document.getElementById('userName').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-          startQuiz();
+          clearTimeout(enterKeyTimeout);
+          enterKeyTimeout = setTimeout(() => {
+            startQuiz();
+          }, 100);
         }
       });
     });
