@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Python Basic Quiz - Nâng Cấp</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      --warning: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      --dark: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      
+      --bg: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      --card: rgba(255, 255, 255, 0.15);
+      --card-hover: rgba(255, 255, 255, 0.25);
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.8);
+      --border: rgba(255, 255, 255, 0.2);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+      z-index: -1;
+    }
+    
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Header Styles */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 20px;
+    }
+    
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      margin: 0 0 20px 0;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+    }
+    
+    /* User Info Card */
+    .user-card {
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+    
+    .user-card:hover {
+      background: var(--card-hover);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-5px);
+    }
+    
+    .user-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    label {
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    .user-input {
+      padding: 15px 20px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-size: 16px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .user-input:focus {
+      outline: none;
+      border-color: #667eea;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.3);
+    }
+    
+    .user-info {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .user-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--success);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    
+    /* Button Styles */
+    .btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+    
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+    
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+    
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    /* Quiz Card */
+    .quiz-card {
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+    
+    .q-list {
+      padding: 0;
+    }
+    
+    .q {
+      padding: 30px;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+    
+    .q:last-child {
+      border-bottom: none;
+    }
+    
+    .q:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .q h3 {
+      margin: 0 0 15px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+    
+    .topic {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 15px;
+      border-radius: 20px;
+      background: var(--accent);
+      color: white;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Options Styles */
+    .options {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    label.opt {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      padding: 20px;
+      border: 2px solid var(--border);
+      border-radius: 15px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    label.opt:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #667eea;
+      transform: translateX(5px);
+    }
+    
+    .short {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      margin-top: 20px;
+    }
+    
+    .short input {
+      flex: 1;
+      padding: 15px 20px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-size: 16px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .short input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* Result Card */
+    .result-card {
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+      display: none;
+    }
+    
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .stat-label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    
+    .score-value { background: var(--primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .percent-value { background: var(--success); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .correct-value { background: var(--success); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .wrong-value { background: var(--danger); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    /* Explanation Styles */
+    .explain {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 4px solid #667eea;
+      display: none;
+      backdrop-filter: blur(10px);
+    }
+    
+    .explain.correct {
+      border-left-color: #4facfe;
+      background: rgba(79, 172, 254, 0.1);
+    }
+    
+    .explain.wrong {
+      border-left-color: #fa709a;
+      background: rgba(250, 112, 154, 0.1);
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .q {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    /* Radio button custom styling */
+    input[type="radio"] {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      background: transparent;
+      margin: 0;
+      cursor: pointer;
+    }
+    
+    input[type="radio"]:checked {
+      background: var(--primary);
+      border-color: #667eea;
+    }
+    
+    /* Loading Animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .wrap {
+        padding: 15px;
+      }
+      
+      .q {
+        padding: 20px;
+      }
+      
+      .controls {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Success message */
+    .success-message {
+      background: var(--success);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>🐍 Quiz Python Cơ Bản</h1>
+      <p class="subtitle">PTB07 - Mentor: Nguyễn Phạm Minh Trí</p>
+    </header>
+
+    <!-- User Info Section -->
+    <div class="user-card" id="userCard">
+      <div class="user-form" id="userForm">
+        <h2 style="margin: 0 0 20px 0; text-align: center;">👋 Chào mừng bạn đến với Quiz Python!</h2>
+        <div class="input-group">
+          <label for="userName">Tên của bạn:</label>
+          <input type="text" id="userName" class="user-input" placeholder="Nhập tên của bạn..." maxlength="50">
+        </div>
+        <div class="input-group">
+          <label for="userEmail">Email (tùy chọn):</label>
+          <input type="email" id="userEmail" class="user-input" placeholder="example@email.com">
+        </div>
+        <button class="btn btn-success" onclick="startQuiz()">
+          🚀 Bắt Đầu Quiz
+        </button>
+      </div>
+      
+      <div class="user-info" id="userInfo" style="display: none;">
+        <div class="user-name" id="displayName"></div>
+        <p>Chúc bạn may mắn với bài quiz! 🍀</p>
+      </div>
+    </div>
+
+    <div class="success-message" id="successMessage"></div>
+
+    <!-- Quiz Section -->
+    <div class="quiz-card" id="quizSection" style="display: none;">
+      <div class="q-list" id="quiz"></div>
+      
+      <div class="controls">
+        <button id="submitBtn" class="btn btn-primary">
+          📝 Nộp bài & Chấm điểm
+        </button>
+        <button id="retryBtn" class="btn btn-ghost">
+          🔄 Làm lại
+        </button>
+        <button id="saveBtn" class="btn btn-success">
+          💾 Lưu kết quả
+        </button>
+      </div>
+    </div>
+
+    <!-- Result Section -->
+    <div class="result-card" id="result">
+      <h2 style="text-align: center; margin-bottom: 30px;">📊 Kết quả của bạn</h2>
+      <div class="result-grid">
+        <div class="stat-card">
+          <div class="stat-value score-value" id="score">0</div>
+          <div class="stat-label">Điểm số / 30</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value percent-value" id="percent">0%</div>
+          <div class="stat-label">Tỷ lệ đúng</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value correct-value" id="correct">0</div>
+          <div class="stat-label">Câu đúng</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value wrong-value" id="wrong">0</div>
+          <div class="stat-label">Câu sai</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p><strong>Phạm vi kiến thức:</strong> Biến, Toán tử, Kiểu dữ liệu, If/Else, While, For</p>
+      <p><em>30 câu hỏi (trắc nghiệm & tự luận) </em></p>
+    </footer>
+  </div>
+
+  <script>
+    // Questions array (same as before)
+    const Q = [
+      // === VARIABLES (5) ===
+      {type:'mcq',topic:'Biến',prompt:'Lệnh nào tạo biến x = 10?',options:['x := 10','let x = 10','x = 10','var x = 10'],answer:2,explain:'Python gán biến bằng toán tử =.'},
+      {type:'mcq',topic:'Biến',prompt:'Tên biến nào hợp lệ?',options:['1var','_count','class','price$'],answer:1,explain:'Tên biến không bắt đầu bằng số, không chứa $, và không trùng từ khóa.'},
+      {type:'short',topic:'Biến',prompt:'Sau khi chạy: <pre>a = 5<br>a = "hi"</pre> Kiểu dữ liệu của a là gì? (ghi tên kiểu: str, int, ...)',answer:['str'],explain:'Biến a đang giữ chuỗi, kiểu là str.'},
+      {type:'mcq',topic:'Biến',prompt:'<pre>a,b = 1,2<br>a,b = b,a</pre> Giá trị của a là?',options:['1','2','(1,2)','Lỗi'],answer:1,explain:'Hoán đổi: a nhận 2, b nhận 1.'},
+      {type:'short',topic:'Biến',prompt:'Khai báo biến tuổi bằng 18 (viết một dòng).',answer:['age = 18','tuoi = 18','age=18','tuoi=18'],explain:'Ví dụ: <code>age = 18</code>.'},
+
+      // === OPERATORS (7) ===
+      {type:'mcq',topic:'Toán tử',prompt:'Kết quả của 5 // 2 là?',options:['2.5','2','3','2.0'],answer:1,explain:'// là chia lấy phần nguyên.'},
+      {type:'mcq',topic:'Toán tử',prompt:'Toán tử ** dùng để?',options:['Lấy dư','Chia nguyên','Lũy thừa','Nhân'],answer:2,explain:'** là lũy thừa.'},
+      {type:'mcq',topic:'Toán tử',prompt:'Giá trị của 3 * 2 ** 2 là?',options:['36','12','16','18'],answer:1,explain:'Ưu tiên ** trước: 2**2=4, 3*4=12.'},
+      {type:'short',topic:'Toán tử',prompt:'Giá trị của 7 % 3 là?',answer:['1','01'],explain:'7 chia 3 dư 1.'},
+      {type:'mcq',topic:'Toán tử',prompt:'Giá trị của biểu thức: not (3 > 2 and 2 > 4) ?',options:['True','False'],answer:0,explain:'3>2 đúng, 2>4 sai ⇒ and là False ⇒ not False = True.'},
+      {type:'short',topic:'Toán tử',prompt:'Điền toán tử để kiểm tra bằng nhau: <code>x ? y</code>',answer:['=='],explain:'So sánh bằng trong Python là ==.'},
+      {type:'mcq',topic:'Toán tử',prompt:'<code>x += 1</code> tương đương với?',options:['x = x + 1','x = x - 1','x = 1','x = 2*x'],answer:0,explain:'Tăng x thêm 1.'},
+
+      // === DATA TYPES (8) ===
+      {type:'mcq',topic:'Kiểu dữ liệu',prompt:'Kiểu của True là?',options:['bool','string','int','NoneType'],answer:0,explain:'True/False là bool.'},
+      {type:'mcq',topic:'Kiểu dữ liệu',prompt:'Câu nào tạo tuple?',options:['x = (1,2,3)','x = [1,2,3]','x = {1,2,3}','x = tuple[1,2,3]'],answer:0,explain:'Dùng ( ) hoặc tuple([...]) để tạo tuple.'},
+      {type:'mcq',topic:'Kiểu dữ liệu',prompt:'Ký hiệu nào là set?',options:['[1,2,3]','(1,2,3)','{1,2,3}','{"a":1}'],answer:2,explain:'{1,2,3} là set; {"a":1} là dict.'},
+      {type:'short',topic:'Kiểu dữ liệu',prompt:'Ghi tên kiểu dữ liệu của "Python" (str, int, ...):',answer:['str'],explain:'Chuỗi có kiểu str.'},
+      {type:'mcq',topic:'Kiểu dữ liệu',prompt:'Kiểu nào là mutable (thay đổi được)?',options:['tuple','list','str','int'],answer:1,explain:'list là mutable.'},
+      {type:'short',topic:'Kiểu dữ liệu',prompt:'Chuyển chuỗi "123" thành số nguyên (viết biểu thức).',answer:["int('123')","int(\"123\")"],explain:'Dùng int("123").'},
+      {type:'mcq',topic:'Kiểu dữ liệu',prompt:'Giá trị của d = {"a":1}; d["a"] là?',options:['"a"','1','KeyError','None'],answer:1,explain:'Truy xuất theo khóa trả về 1.'},
+      {type:'short',topic:'Kiểu dữ liệu',prompt:'Kiểu dữ liệu của giá trị None là gì?',answer:['nonetype','none type','noneType'],explain:'Kiểu là NoneType (không phân biệt hoa thường khi so khớp).'},
+
+      // === IF/ELSE (5) ===
+      {type:'mcq',topic:'If/Else',prompt:'Cú pháp if-else một dòng đúng là?',options:['if x>5 then "OK" else "NO"','"OK" if x>5 else "NO"','"OK" else "NO" if x>5','if (x>5)?"OK":"NO"'],answer:1,explain:'Python dùng biểu thức điều kiện: A if cond else B.'},
+      {type:'short',topic:'If/Else',prompt:'Kết quả in ra của: <pre>x=0<br>if x: print("T")<br>else: print("F")</pre>',answer:['f','F'],explain:'0 là falsy ⇒ nhánh else.'},
+      {type:'mcq',topic:'If/Else',prompt:'Chọn cấu trúc if/elif/else đúng:',options:[
+        'if cond: ...\nelseif cond2: ...\nelse: ...',
+        'if cond: ...\nelif cond2: ...\nelse: ...',
+        'if cond: ...\nelse if cond2: ...\nelse: ...',
+        'if cond: ...\nelseif cond2: ...\notherwise: ...'
+      ],answer:1,explain:'Python dùng elif, không phải elseif.'},
+      {type:'short',topic:'If/Else',prompt:'Viết điều kiện kiểm tra n là số chẵn (chỉ phần điều kiện sau if): <code>if ____:</code>',answer:['n % 2 == 0','(n % 2) == 0'],explain:'Số chẵn khi chia 2 dư 0.'},
+      {type:'mcq',topic:'If/Else',prompt:'Giá trị nào là falsy trong Python?',options:['0','1','"0"','[0]'],answer:0,explain:'0, "", [], None, False,... là falsy.'},
+
+      // === WHILE (4) ===
+      {type:'mcq',topic:'While',prompt:'Điều gì cần để tránh vòng lặp while vô hạn?',options:[
+        'Không dùng biến',
+        'Luôn đặt break ở đầu',
+        'Cập nhật biến điều kiện phù hợp bên trong vòng lặp',
+        'Không cần làm gì'
+      ],answer:2,explain:'Nếu không cập nhật, điều kiện có thể luôn đúng.'},
+      {type:'short',topic:'While',prompt:'Giá trị cuối của count là gì? <pre>count=0<br>while count<3:<br>    count+=1<br>print(count)</pre>',answer:['3'],explain:'count tăng 3 lần: 1→2→3.'},
+      {type:'mcq',topic:'While',prompt:'Tác dụng của break trong while là gì?',options:['Bỏ qua lần lặp hiện tại','Thoát hẳn vòng lặp','Chuyển sang for','Không làm gì'],answer:1,explain:'break thoát khỏi vòng lặp gần nhất.'},
+      {type:'mcq',topic:'While',prompt:'Tác dụng của continue trong while là gì?',options:['Thoát vòng lặp','Bỏ qua phần còn lại, sang vòng lặp kế','Dừng chương trình','Reset biến'],answer:1,explain:'continue nhảy tới lần lặp kế tiếp.'},
+
+      // === FOR (4) ===
+      {type:'mcq',topic:'For',prompt:'Kết quả: <pre>for i in range(1,4):<br>    print(i)</pre>',options:['0 1 2','1 2 3','1 2 3 4','0 1 2 3'],answer:1,explain:'range(1,4) tạo 1,2,3.'},
+      {type:'short',topic:'For',prompt:'Điền biến lặp để duyệt chuỗi s="Hi": <code>for ____ in s:</code>',answer:['c','ch','ch_','i','x','k','char','character'],explain:'Ví dụ: <code>for c in s:</code>. (Bất kỳ tên biến hợp lệ).'},
+      {type:'mcq',topic:'For',prompt:'Câu lệnh nào tạo danh sách bình phương từ 0..4?',options:[
+        '[i*i for i in range(5)]',
+        'for i in range(5): i*i',
+        '{i*i for i in range(5)}',
+        '(i*i for i in range(5))'
+      ],answer:0,explain:'List comprehension trả về list.'},
+      {type:'short',topic:'For',prompt:'Tổng của các số trong [1,2,3] dùng for (viết 1 dòng, gợi ý: sum hoặc vòng lặp ngắn).',answer:['sum([1,2,3])','sum((1,2,3))','6'],explain:'Có thể dùng sum([1,2,3]) = 6.'}
+    ];
+
+    // User data
+    let currentUser = {
+      name: '',
+      email: '',
+      score: 0,
+      attempts: 0,
+      completedAt: null
+    };
+
+    // Helper functions
+    function norm(s) {
+      return s.toString().trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    function showMessage(message, type = 'success') {
+      const messageEl = document.getElementById('successMessage');
+      messageEl.textContent = message;
+      messageEl.className = `success-message ${type}`;
+      messageEl.style.display = 'block';
+      setTimeout(() => {
+        messageEl.style.display = 'none';
+      }, 3000);
+    }
+
+    // Start quiz function
+    function startQuiz() {
+      const nameInput = document.getElementById('userName');
+      const emailInput = document.getElementById('userEmail');
+      
+      if (!nameInput.value.trim()) {
+        alert('Vui lòng nhập tên của bạn!');
+        nameInput.focus();
+        return;
+      }
+
+      currentUser.name = nameInput.value.trim();
+      currentUser.email = emailInput.value.trim();
+      currentUser.attempts += 1;
+
+      // Update UI
+      document.getElementById('userForm').style.display = 'none';
+      document.getElementById('userInfo').style.display = 'block';
+      document.getElementById('displayName').textContent = `🎓 ${currentUser.name}`;
+      document.getElementById('quizSection').style.display = 'block';
+
+      // Render quiz
+      renderQuiz();
+      
+      // Smooth scroll to quiz
+      document.getElementById('quizSection').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+      showMessage(`Chào mừng ${currentUser.name}! Hãy bắt đầu làm bài quiz.`, 'success');
+    }
+
+    // Render quiz
+    function renderQuiz() {
+      const el = document.getElementById('quiz');
+      el.innerHTML = '';
+      
+      Q.forEach((q, idx) => {
+        const qEl = document.createElement('div');
+        qEl.className = 'q';
+        qEl.style.animationDelay = `${idx * 0.1}s`;
+
+        const topicEl = document.createElement('div');
+        topicEl.className = 'topic';
+        topicEl.textContent = q.topic;
+
+        const titleEl = document.createElement('h3');
+        titleEl.innerHTML = `${idx + 1}. ${q.prompt}`;
+
+        qEl.appendChild(topicEl);
+        qEl.appendChild(titleEl);
+
+        if (q.type === 'mcq') {
+          const optionsEl = document.createElement('div');
+          optionsEl.className = 'options';
+          
+          q.options.forEach((opt, i) => {
+            const id = `q${idx}_opt${i}`;
+            const label = document.createElement('label');
+            label.className = 'opt';
+            label.setAttribute('for', id);
+
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = `q${idx}`;
+            input.id = id;
+            input.value = i;
+
+            const span = document.createElement('span');
+            span.innerHTML = opt;
+
+            label.appendChild(input);
+            label.appendChild(span);
+            optionsEl.appendChild(label);
+          });
+          
+          qEl.appendChild(optionsEl);
+        } else {
+          const shortEl = document.createElement('div');
+          shortEl.className = 'short';
+          
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.placeholder = 'Nhập đáp án của bạn...';
+          input.name = `q${idx}`;
+          
+          shortEl.appendChild(input);
+          qEl.appendChild(shortEl);
+        }
+
+        const explainEl = document.createElement('div');
+        explainEl.className = 'explain';
+        explainEl.id = `exp_${idx}`;
+        qEl.appendChild(explainEl);
+
+        el.appendChild(qEl);
+      });
+    }
+
+    // Grade quiz
+    function gradeQuiz() {
+      let correct = 0;
+      const total = Q.length;
+
+      Q.forEach((q, idx) => {
+        const explainEl = document.getElementById(`exp_${idx}`);
+        explainEl.style.display = 'block';
+
+        let isCorrect = false;
+        let explanation = '';
+
+        if (q.type === 'mcq') {
+          const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+          isCorrect = selected && Number(selected.value) === q.answer;
+          
+          if (isCorrect) {
+            correct++;
+            explanation = `✅ <strong>Đúng rồi!</strong> ${q.explain}`;
+            explainEl.className = 'explain correct';
+          } else {
+            const correctAnswer = q.options[q.answer];
+            explanation = `❌ <strong>Chưa đúng.</strong> Đáp án đúng: <strong>${correctAnswer}</strong><br><em>${q.explain}</em>`;
+            explainEl.className = 'explain wrong';
+          }
+        } else {
+          const input = document.querySelector(`input[name="q${idx}"]`);
+          const userAnswer = input ? norm(input.value) : '';
+          const correctAnswers = (q.answer || []).map(norm);
+          isCorrect = correctAnswers.includes(userAnswer);
+          
+          if (isCorrect) {
+            correct++;
+            explanation = `✅ <strong>Đúng rồi!</strong> ${q.explain}`;
+            explainEl.className = 'explain correct';
+          } else {
+            const suggestedAnswer = q.answer && q.answer.length ? q.answer[0] : '(tham khảo)';
+            explanation = `❌ <strong>Chưa đúng.</strong> Gợi ý đáp án: <strong>${suggestedAnswer}</strong><br><em>${q.explain}</em>`;
+            explainEl.className = 'explain wrong';
+          }
+        }
+
+        explainEl.innerHTML = explanation;
+      });
+
+      // Update user score
+      currentUser.score = correct;
+      currentUser.completedAt = new Date().toISOString();
+
+      // Update result display
+      const percent = Math.round((correct / total) * 100);
+      document.getElementById('score').textContent = correct;
+      document.getElementById('percent').textContent = percent + '%';
+      document.getElementById('correct').textContent = correct;
+      document.getElementById('wrong').textContent = total - correct;
+      document.getElementById('result').style.display = 'block';
+
+      // Scroll to results
+      document.getElementById('result').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+      // Show completion message
+      let message = '';
+      if (percent >= 90) {
+        message = `🎉 Xuất sắc! ${currentUser.name} đạt ${percent}% - Bạn thật giỏi Python!`;
+      } else if (percent >= 70) {
+        message = `👏 Tốt lắm! ${currentUser.name} đạt ${percent}% - Bạn đã nắm khá vững kiến thức!`;
+      } else if (percent >= 50) {
+        message = `💪 Không tệ! ${currentUser.name} đạt ${percent}% - Hãy tiếp tục luyện tập!`;
+      } else {
+        message = `📚 ${currentUser.name} đạt ${percent}% - Hãy ôn tập thêm và thử lại nhé!`;
+      }
+      
+      showMessage(message, 'success');
+    }
+
+    // Reset quiz
+    function resetQuiz() {
+      // Reset form inputs
+      document.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.checked = false;
+      });
+      
+      document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.value = '';
+      });
+
+      // Hide explanations and results
+      document.querySelectorAll('.explain').forEach(el => {
+        el.style.display = 'none';
+      });
+      
+      document.getElementById('result').style.display = 'none';
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      showMessage('Quiz đã được reset! Bạn có thể làm lại.', 'success');
+    }
+
+    // Save results (simulated - in real app this would call backend API)
+    function saveResults() {
+      if (!currentUser.completedAt) {
+        alert('Vui lòng hoàn thành quiz trước khi lưu kết quả!');
+        return;
+      }
+
+      // Simulate API call
+      const resultData = {
+        user_name: currentUser.name,
+        user_email: currentUser.email,
+        score: currentUser.score,
+        total_questions: Q.length,
+        percentage: Math.round((currentUser.score / Q.length) * 100),
+        completed_at: currentUser.completedAt,
+        attempt_number: currentUser.attempts
+      };
+
+      // In real implementation, you would send this to your backend:
+      // fetch('/api/save-quiz-result', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(resultData)
+      // })
+
+      console.log('Kết quả sẽ được lưu:', resultData);
+      
+      // Simulate success
+      showMessage(`💾 Kết quả của ${currentUser.name} đã được lưu thành công!`, 'success');
+      
+      // Disable save button temporarily
+      const saveBtn = document.getElementById('saveBtn');
+      const originalText = saveBtn.innerHTML;
+      saveBtn.innerHTML = '<span class="loading"></span> Đang lưu...';
+      saveBtn.disabled = true;
+      
+      setTimeout(() => {
+        saveBtn.innerHTML = '✅ Đã lưu';
+        setTimeout(() => {
+          saveBtn.innerHTML = originalText;
+          saveBtn.disabled = false;
+        }, 2000);
+      }, 1500);
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('submitBtn').addEventListener('click', gradeQuiz);
+      document.getElementById('retryBtn').addEventListener('click', resetQuiz);
+      document.getElementById('saveBtn').addEventListener('click', saveResults);
+      
+      // Enter key support for name input
+      document.getElementById('userName').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          startQuiz();
+        }
+      });
+    });
+
+    // Make startQuiz globally available
+    window.startQuiz = startQuiz;
+  </script>
+</body>
+</html>
